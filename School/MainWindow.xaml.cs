@@ -30,11 +30,53 @@ namespace School
         {
           using (SchoolContainer db = new SchoolContainer())
             {
-                foreach (Client u in db.Client)
-                {
-                    clients.Add(u);
-                }
-                DataGridClients.ItemsSource = clients;
+                var clients = db.Client.Join(db.Gender,
+                    p => p.GenderCode,
+                    q => q.Code,
+                    (p, q) => new
+                    {
+                        Id = p.ID,
+                        Gender = q.Name,
+                        Name = p.FirstName,
+                        LastName = p.LastName,
+                        Patronymic = p.Patronymic,
+                        DateBirth = p.Birthday,
+                        Phone = p.Phone,
+                        Email = p.Email,
+                        DateAdd = p.RegistrationDate
+                    }).ToList();
+
+                var list = (from c in db.Client
+                    join v in db.Visiting on c.ID equals v.IDClient
+                    into gj
+                    from q in gj.DefaultIfEmpty()
+                    select new
+                    {
+                        Id = c.ID,
+                        DateLastVisit = q.Date == null ? null : q.Date,
+                        Quantity = q.Date == null ? 0:1
+                       }).GroupBy(p=>p.Id).Select(q=> new { Id=q.Key, Count = q.Sum(w=>w.Quantity),
+                           Date = q.Max(w=>w.DateLastVisit)}).ToList();
+
+                var result = (from c in clients
+                              from l in list
+                              where c.Id == l.Id
+                              select new
+                              {
+                                  Id = c.Id,
+                                  Gender = c.Gender,
+                                  Name = c.Name,
+                                  LastName = c.LastName,
+                                  Patronymic = c.Patronymic,
+                                  DataBirth = c.DateBirth,
+                                  Phone = c.Phone,
+                                  Email = c.Email,
+                                  DateAdd = c.DateAdd,
+                                  DateLastVisit = l.Date,
+                                  Count = l.Count
+                              }).ToList();
+
+                DataGridClients.ItemsSource = result;
                 }
             }
         }

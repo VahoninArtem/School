@@ -36,5 +36,6 @@ namespace School
         public virtual DbSet<Service> Service { get; set; }
         public virtual DbSet<ServicePhoto> ServicePhoto { get; set; }
         public virtual DbSet<Tag> Tag { get; set; }
+        public virtual DbSet<Visiting> Visiting { get; set; }
     }
 }

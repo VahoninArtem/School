@@ -127,6 +127,14 @@
           <Property Name="ClientID" Type="int" Nullable="false" />
           <Property Name="TagID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Visiting">
+          <Key>
+            <PropertyRef Name="IDVisit" />
+          </Key>
+          <Property Name="IDVisit" Type="int" Nullable="false" />
+          <Property Name="IDClient" Type="int" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
         <Association Name="FK_AttachedProduct_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="AttachedProduct" Type="Self.AttachedProduct" Multiplicity="*" />
@@ -297,6 +305,7 @@
           <EntitySet Name="ServicePhoto" EntityType="Self.ServicePhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TagOfClient" EntityType="Self.TagOfClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visiting" EntityType="Self.Visiting" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AttachedProduct_Product" Association="Self.FK_AttachedProduct_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="AttachedProduct" EntitySet="AttachedProduct" />
@@ -366,6 +375,7 @@
           <EntitySet Name="Service" EntityType="School.Service" />
           <EntitySet Name="ServicePhoto" EntityType="School.ServicePhoto" />
           <EntitySet Name="Tag" EntityType="School.Tag" />
+          <EntitySet Name="Visiting" EntityType="School.Visiting" />
           <AssociationSet Name="FK_Client_Gender" Association="School.FK_Client_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Client" EntitySet="Client" />
@@ -538,6 +548,14 @@
           <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Color" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Client" Relationship="School.TagOfClient" FromRole="Tag" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Visiting">
+          <Key>
+            <PropertyRef Name="IDVisit" />
+          </Key>
+          <Property Name="IDVisit" Type="Int32" Nullable="false" />
+          <Property Name="IDClient" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="FK_Client_Gender">
           <End Type="School.Gender" Role="Gender" Multiplicity="1" />
@@ -777,6 +795,15 @@
                 <ScalarProperty Name="Color" ColumnName="Color" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visiting">
+            <EntityTypeMapping TypeName="School.Visiting">
+              <MappingFragment StoreEntitySet="Visiting">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IDClient" ColumnName="IDClient" />
+                <ScalarProperty Name="IDVisit" ColumnName="IDVisit" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -112,6 +112,9 @@
     <Compile Include="Tag.cs">
       <DependentUpon>School.tt</DependentUpon>
     </Compile>
+    <Compile Include="Visiting.cs">
+      <DependentUpon>School.tt</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
