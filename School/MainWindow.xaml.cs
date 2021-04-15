@@ -20,9 +20,22 @@ namespace School
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Client> clients = new List<Client>();
         public MainWindow()
         {
             InitializeComponent();
+            FillTable();
+        }
+        private void FillTable ()
+        {
+          using (SchoolContainer db = new SchoolContainer())
+            {
+                foreach (Client u in db.Client)
+                {
+                    clients.Add(u);
+                }
+                DataGridClients.ItemsSource = clients;
+                }
+            }
         }
     }
-}

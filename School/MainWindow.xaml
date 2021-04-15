@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Image Margin="10,10,664.6,321" Source="school_logo.png" Stretch="Fill"/>
+        <Label Content="Список клиентов&#xD;&#xA;" HorizontalAlignment="Left" Margin="306,10,0,0" VerticalAlignment="Top" Height="56" Width="181" FontFamily="Comic Sans MS" FontSize="20"/>
+        <DataGrid x:Name="DataGridClients" HorizontalAlignment="Left" Height="258" Margin="10,152,0,0" VerticalAlignment="Top" Width="774" RowBackground="White" AlternatingRowBackground="#FF04A0FF"/>
+
     </Grid>
 </Window>
